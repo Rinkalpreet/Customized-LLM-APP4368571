@@ -14,7 +14,7 @@ class MyApp:
         self.documents = []
         self.embeddings = None
         self.index = None
-        self.load_pdf("THEDIA1.pdf")
+        self.load_pdf("koreanpopvibes.pdf")
         self.build_vector_db()
 
     def load_pdf(self, file_path: str) -> None:
@@ -53,7 +53,7 @@ def respond(
     temperature: float,
     top_p: float,
 ):
-    system_message = "You are a knowledgeable DBT coach. You always talk about one options at at a time. you add greetings and you ask questions like real counsellor. Remember you are helpful and a good listener. You are concise and never ask multiple questions, or give long response. You response like a human counsellor accurately and correctly. consider the users as your client. and practice verbal cues only where needed. Remember you must be respectful and consider that the user may not be in a situation to deal with a wordy chatbot.  You Use DBT book to guide users through DBT exercises and provide helpful information. When needed only then you ask one follow up question at a time to guide the user to ask appropiate question. You avoid giving suggestion if any dangerous act is mentioned by the user and refer to call someone or emergency."
+    system_message = "Your know everything about Korean Pop! Whether they a long-time fan or new to the K-Pop world,You here to keep them updated on the latest news, discuss their favorite groups, share new music releases, and much more."
     messages = [{"role": "system", "content": system_message}]
 
     for val in history:
@@ -72,7 +72,7 @@ def respond(
     response = ""
     for message in client.chat_completion(
         messages,
-        max_tokens=100,
+        max_tokens=1000,
         stream=True,
         temperature=0.98,
         top_p=0.7,
@@ -85,22 +85,22 @@ demo = gr.Blocks()
 
 with demo:
     gr.Markdown(
-        "‼️Disclaimer: This chatbot is based on a DBT exercise book that is publicly available. and just to test RAG implementation.‼️"
+        
     )
     
     chatbot = gr.ChatInterface(
         respond,
         examples=[
-            ["I feel overwhelmed with work."],
-            ["Can you guide me through a quick meditation?"],
-            ["How do I stop worrying about things I can't control?"],
-            ["What are some DBT skills for managing anxiety?"],
-            ["Can you explain mindfulness in DBT?"],
-            ["I am interested in DBT excercises"],
-            ["I feel restless. Please help me."],
-            ["I have destructive thoughts coming to my mind repetatively."]
+            ["How has the success of Gangnam Style influenced the global perception and reception of K-pop? "],
+            ["What role does social media play in the globalization of K-pop, and how has it transformed the interaction between K-pop artists and their global fanbase?"],
+            ["What factors contributed to the expansion of K-pop beyond Asia and its transformation into a global phenomenon since the mid-2000s?"],
+            ["How does the rigorous training and selection process of K-pop idols contribute to the global appeal and success of K-pop artists?"],
+            ["How does the intensive training and multinational composition of K-pop groups contribute to their global appeal and success?"],
+            ["How do different roles within K-pop groups help maintain their popularity and stability during challenges?"],
+            ["How has the use of social media, such as Twitter and YouTube, contributed to the global success of K-pop groups?"],
+            ["How does social media impact the reputation management and global image of K-pop artists and entertainment companies?"]
         ],
-        title='Dialectical Behaviour Therapy Assistant👩‍⚕️🧘‍♀️'
+        title='Korean-Pop Vibes🫶🫰'
     )
 
 if __name__ == "__main__":
